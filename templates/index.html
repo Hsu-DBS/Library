@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="/add" class="btn btn-primary mb-3">➕ Add Book</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Rating</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ "%.1f"|format(book.rating) }}</td>
+      <td>{{ book.status }}</td>
+      <td>
+        <a
+          href="/edit/{{ book.id }}"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+        <a
+          href="/delete/{{ book.id }}"
+          class="btn btn-danger btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,1 @@
+A clean and simple book tracking website built with FastAPI and HTML.
