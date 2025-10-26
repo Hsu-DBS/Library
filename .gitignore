@@ -61,3 +61,10 @@ Thumbs.db
 
 # FastAPI
 .pytest_cache/
+
+
+
+#terraform
+*.tfstate
+*.tfstate.*
+.terraform/
