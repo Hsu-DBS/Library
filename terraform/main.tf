@@ -29,7 +29,7 @@ resource "aws_instance" "example" {
   ami                         = "ami-0fb0b230890ccd1e6"
   instance_type               = "t2.micro"
   key_name                    = "terraform-ec2-key"
-  vpc_security_group_ids      = [aws_security_group.web_sg.id]
+  vpc_security_group_ids      = [aws_security_group.terraform_web_sg.id]
   associate_public_ip_address = true
 
   tags = {
