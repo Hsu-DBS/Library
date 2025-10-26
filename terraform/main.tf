@@ -26,8 +26,8 @@ resource "aws_security_group" "terraform_web_sg" {
 
 # EC2 instance
 resource "aws_instance" "example" {
-  ami                         = "ami-0fb0b230890ccd1e6"
-  instance_type               = "t2.micro"
+  ami                         = "ami-0c7114fa3eac14de1"   # Latest ARM64 Ubuntu
+  instance_type               = "t4g.micro"              # Free Tier eligible
   key_name                    = "terraform-ec2-key"
   vpc_security_group_ids      = [aws_security_group.terraform_web_sg.id]
   associate_public_ip_address = true
@@ -36,4 +36,5 @@ resource "aws_instance" "example" {
     Name = "My First EC2 Instance"
   }
 }
+
 
