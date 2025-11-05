@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy FastAPI App
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up QEMU (for multi-arch, optional)
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
       - name: Log in to Docker Hub
@@ -24,7 +24,7 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/library-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
 
   deploy:
     needs: build
@@ -37,7 +37,12 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/library-app:latest
-            docker stop library-app || true
-            docker rm library-app || true
-            docker run -d --restart unless-stopped -p 80:80 --name library-app ${{ secrets.DOCKER_USERNAME }}/library-app:latest
+            # Pull latest image from Docker Hub
+            docker pull ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
+
+            # Stop and remove old container if exists
+            docker stop fastapi-container || true
+            docker rm fastapi-container || true
+
+            # Run the updated container on port 8000 (internal app port)
+            docker run -d --restart unless-stopped -p 8000:8000 --name fastapi-container ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
