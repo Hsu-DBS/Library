@@ -19,12 +19,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image (ARM64)
         uses: docker/build-push-action@v4
         with:
           context: ./app
           push: true
+          platforms: linux/arm64
           tags: ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
+
 
   deploy:
     needs: build
