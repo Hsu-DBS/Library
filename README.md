@@ -50,6 +50,7 @@ book-tracking-system/
 Provision AWS resources:
 cd terraform
 terraform init
+terraform validate
 terraform plan -out plan.tfplan
 terraform apply "plan.tfplan"
 
@@ -125,6 +126,6 @@ Technologies: FastAPI, Terraform, Ansible, Docker, GitHub Actions, AWS
 
 ---
 
-## 🏁 Conclusion
+## Conclusion
 
 This project demonstrates how **Infrastructure as Code (Terraform)**, **Configuration Management (Ansible)**, **Containerization (Docker)**, and **CI/CD Automation (GitHub Actions)** can work together to create a reliable, scalable, and fully automated cloud deployment pipeline.
