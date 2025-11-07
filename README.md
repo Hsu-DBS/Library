@@ -129,3 +129,5 @@ Technologies: FastAPI, Terraform, Ansible, Docker, GitHub Actions, AWS
 ## Conclusion
 
 This project demonstrates how **Infrastructure as Code (Terraform)**, **Configuration Management (Ansible)**, **Containerization (Docker)**, and **CI/CD Automation (GitHub Actions)** can work together to create a reliable, scalable, and fully automated cloud deployment pipeline.
+
+#to verify ci/cd functionality
