@@ -21,6 +21,7 @@ This project integrates modern DevOps tools to automate infrastructure provision
 
 ## Project Structure
 
+```
 book-tracking-system/
 ├── app/
 │   ├── app.py                # FastAPI app entry
@@ -41,18 +42,24 @@ book-tracking-system/
 ├── .github/workflows/        # CI/CD workflow
 │   └── deploy.yml
 │
+├── cloud_formation/                # CloudFormation
+│   ├── ec2-instance.yaml
+│
 └── README.md
+```
 
 ---
 
 ## Terraform – Infrastructure Setup
 
 Provision AWS resources:
+```bash
 cd terraform
 terraform init
 terraform validate
 terraform plan -out=tfplan
 terraform apply tfplan
+```
 
 After execution, Terraform outputs the EC2 public IP.  
 Note: An Elastic IP was later assigned for stable hosting.
@@ -62,8 +69,10 @@ Note: An Elastic IP was later assigned for stable hosting.
 ## Ansible – Server Configuration
 
 Configure the EC2 instance and install Docker:
+```bash
 ansible -i inventory.ini all -m ping
 ansible-playbook -i inventory.ini playbooks/setup-docker.yml
+```
 
 Ensures Docker is installed, enabled, and ready for deployment.
 
@@ -74,12 +83,17 @@ Ensures Docker is installed, enabled, and ready for deployment.
 Create and run the Docker container on the **cloud server (AWS EC2)**:
 
 Build the Docker image:
+```bash
 docker build -t fastapi-app .
+```
 
 Run the container on the cloud server:
+```bash
 docker run -d -p 8000:8000 --name fastapi-container fastapi-app
+```
 
-Access the running application in the browser: http://50.16.26.60:8000/
+Access the running application in the browser:  
+http://50.16.26.60:8000/
 
 The FastAPI application is running inside a Docker container on the EC2 instance, served using Uvicorn.
 
@@ -89,43 +103,46 @@ The FastAPI application is running inside a Docker container on the EC2 instance
 
 GitHub Actions automates deployment whenever code is pushed to the main branch.
 
-Workflow Steps:
-1. Builds Docker image from the latest code.
-2. Pushes image to Docker Hub.
-3. SSHs into EC2 instance.
-4. Pulls and redeploys the updated container.
+**Workflow Steps:**
+1. Builds Docker image from the latest code.  
+2. Pushes image to Docker Hub.  
+3. SSHs into EC2 instance.  
+4. Pulls and redeploys the updated container.  
 
-Required Secrets:
+**Required Secrets:**
+```
 DOCKER_USERNAME  
 DOCKER_PASSWORD  
 SSH_PRIVATE_KEY  
 SSH_USER  
 SERVER_IP  
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
+AWS_ACCESS_KEY_ID  
+AWS_SECRET_ACCESS_KEY  
+```
 
 ---
 
 ## Accessing the Application
 
-After deployment, open browser:  http://50.16.26.60:8000/
+After deployment, open browser:  
+http://50.16.26.60:8000/
 
-Will see the Book Tracking homepage.
+You will see the **Book Tracking** homepage.
 
 ---
 
 ## Author
 
-Name: Hsu Myint Myat Kyaw
-Program: MSc Information Systems with Computing
-Module Title: Network Systems and Administration CA 2025
-Module Code: B9IS121
-Assessment Title: Automated Container deployment and Administration in the cloud
-Project: Automated Cloud Deployment – Book Tracking System  
-Technologies: FastAPI, Terraform, Ansible, Docker, GitHub Actions, AWS 
+**Name:** Hsu Myint Myat Kyaw  
+**Program:** MSc Information Systems with Computing  
+**Module Title:** Network Systems and Administration CA 2025  
+**Module Code:** B9IS121  
+**Assessment Title:** Automated Container Deployment and Administration in the Cloud  
+**Project:** Automated Cloud Deployment – Book Tracking System  
+**Technologies:** FastAPI, Terraform, Ansible, Docker, GitHub Actions, AWS  
 
 ---
 
 ## Conclusion
 
-This project demonstrates how **Infrastructure as Code (Terraform)**, **Configuration Management (Ansible)**, **Containerization (Docker)**, and **CI/CD Automation (GitHub Actions)** can work together to create a reliable, scalable, and fully automated cloud deployment pipeline.
+This project demonstrates how **Infrastructure as Code (Terraform)**, **Configuration Management (Ansible)**, **Containerization (Docker)**, and **CI/CD Automation (GitHub Actions)** work together to create a reliable, scalable, and fully automated cloud deployment pipeline.
