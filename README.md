@@ -51,8 +51,8 @@ Provision AWS resources:
 cd terraform
 terraform init
 terraform validate
-terraform plan -out plan.tfplan
-terraform apply "plan.tfplan"
+terraform plan -out=tfplan
+terraform apply tfplan
 
 After execution, Terraform outputs the EC2 public IP.  
 Note: An Elastic IP was later assigned for stable hosting.
