@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to launch a t4g.micro EC2 instance (ARM64) for demo purposes
+
+Resources:
+  MyT4GInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t4g.micro
+      ImageId: ami-0c7114fa3eac14de1
+      KeyName: terraform-ec2-key
+      Tags:
+        - Key: Name
+          Value: DemoInstance
